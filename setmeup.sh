@@ -33,11 +33,9 @@ done
 
 echo "updating .bashrc"
 
-cat <<EOF >> ~/.bashrc
+cat <<'EOF' >> ~/.bashrc
 
-eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/theme.json)"
-
-[ -z "$TMUX"  ] && { tmux attach || exec tmux new-session && exit;}
+eval "$(oh-my-posh init bash --config ~/.config/oh-my-posh/theme.json)"
 
 source ~/.config/aliases
 
