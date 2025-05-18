@@ -13,7 +13,7 @@ if ! command -v brew >/dev/null 2>&1; then
 	echo "finished installing homebrew"
 fi
 
-brew_tools=( "cut" "jq" "awk" "fzf" "ripgrep" "bat" "yq" "gitui" "tmux" "oh-my-posh" )
+brew_tools=( "cut" "jq" "awk" "fzf" "ripgrep" "bat" "yq" "gitui" "tmux" "oh-my-posh" "micro" )
 for tool in "${brew_tools[@]}"; do
 	if ! command -v "${tool}" >/dev/null 2>&1; then
 		echo "${tool} was not found, going to install via Homebrew..."
@@ -31,5 +31,16 @@ for tool in "${brew_tools[@]}"; do
 	fi
 done
 
-# TODO : install micro
-# TODO : micro and tmux configs
+echo "updating .bashrc"
+
+cat <<EOF >> ~/.bashrc
+
+eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/theme.json)"
+
+[ -z "$TMUX"  ] && { tmux attach || exec tmux new-session && exit;}
+
+source ~/.config/aliases
+
+EOF
+
+mkdir -p ~/.config

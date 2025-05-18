@@ -1,0 +1,7 @@
+{
+    "colorscheme": "oxocarbon",
+    "lsp.ignoreTriggerCharacters": "completion,signature",
+    "lsp.server": "python=pylsp,go=gopls",
+    "mkparents": true,
+    "statusformatr": "$(status.branch) | $(status.hash) | Alt+g = bindings"
+}
