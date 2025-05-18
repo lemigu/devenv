@@ -24,7 +24,7 @@ jobs:
             if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
                 echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
             else
-                echo "tag-latest" >> $GITHUB_OUTPUT
+                echo "tag=latest" >> $GITHUB_OUTPUT
             fi
         - name: Build and Push
           uses: docker/build-push-action@v5
