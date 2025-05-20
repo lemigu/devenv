@@ -3,7 +3,9 @@ FROM ubuntu:25.10
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
-	apt-get install -y --no-install-recommends ca-certificates curl git build-essential sudo wget cmake unzip
+	apt-get install -y --no-install-recommends ca-certificates curl git build-essential sudo wget cmake unzip locales
+
+RUN locale-gen en_US.UTF-8 && update-locale LANG=en_US.UTF-8
 
 RUN apt-get install -y coreutils jq gawk fzf ripgrep bat yq lazygit tmux tree neovim 
 
@@ -14,6 +16,12 @@ RUN python3 -m pip install 'python-language-server[all]' --break-system-packages
 
 RUN useradd -m -s /bin/bash developer && \
 	echo "developer ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+RUN mkdir -p /usr/share/fonts/nerd-fonts && \
+    curl -fLo /tmp/JetBrainsMono.zip https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip && \
+    unzip /tmp/JetBrainsMono.zip -d /usr/share/fonts/nerd-fonts/JetBrainsMono && \
+    fc-cache -fv && \
+    rm /tmp/JetBrainsMono.zip
 
 USER developer
 
@@ -39,7 +47,17 @@ COPY ./dotfiles/tmux/ /home/developer/.config/tmux
 
 COPY ./oh-my-posh/ /home/developer/.config/oh-my-posh
 
+RUN sudo chown -R developer:developer /home/developer/.config
+
 RUN nvim --headless "+Lazy! sync" +qa
+
+RUN echo "// bootstrap.go" > /tmp/bootstrap.go && \
+    nvim --headless /tmp/bootstrap.go \
+    "+lua require('lazy').sync()" \
+    "+sleep 60" \
+    +qa
+
+RUN rm -rf /tmp/bootstrap.go
 
 WORKDIR /home/developer/workspace
 
