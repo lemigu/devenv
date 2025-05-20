@@ -33,9 +33,9 @@ export PATH="$PATH:/home/developer/local/go/bin:/home/developer/local/bin:/home/
 [ -z "$TMUX"  ] && { tmux attach || exec tmux new-session && exit;}
 EOF
 
-COPY ./dotfiles/nvim/ /home/developer/config/nvim
+COPY ./dotfiles/nvim/ /home/developer/.config/nvim
 
-COPY ./dotfiles/tmux/ /home/developer/config/tmux
+COPY ./dotfiles/tmux/ /home/developer/.config/tmux
 
 COPY ./oh-my-posh/ /home/developer/.config/oh-my-posh
 
