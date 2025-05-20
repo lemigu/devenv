@@ -1,11 +1,11 @@
-FROM ubuntu:25.04
+FROM ubuntu:25.10
 
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
 	apt-get install -y --no-install-recommends ca-certificates curl git build-essential sudo wget
 
-RUN apt-get install -y coreutils jq awk fzf ripgrep bat yq lazygit tmux 
+RUN apt-get install -y coreutils jq gawk fzf ripgrep bat yq lazygit tmux 
 
 RUN apt-get install python3.11 python3.11-dev
 # TODO : pip?
