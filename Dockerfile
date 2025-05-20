@@ -9,7 +9,8 @@ RUN apt-get install -y coreutils jq gawk fzf ripgrep bat yq lazygit tmux
 
 RUN apt-get install -y python3 python3-dev python3-pip
 
-RUN python3 -m pip install 'python-language-server[all]'
+# yes, I am using `--break-system-packages` for this one
+RUN python3 -m pip install 'python-language-server[all]' --break-system-packages
 
 # TODO : oh-my-posh
 
