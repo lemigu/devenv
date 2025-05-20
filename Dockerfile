@@ -3,8 +3,7 @@ FROM ubuntu:25.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
-	apt-get install -y --no-install-recommends ca-certificates curl git build-essential sudo wget && \
-	rm -rf /var/lib/apt/lists/*
+	apt-get install -y --no-install-recommends ca-certificates curl git build-essential sudo wget
 
 RUN apt-get install -y coreutils jq awk fzf ripgrep bat yq lazygit tmux 
 
