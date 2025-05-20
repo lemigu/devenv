@@ -19,6 +19,8 @@ RUN useradd -m -s /bin/bash developer && \
 
 USER developer
 
+WORKDIR /home/developer/
+
 RUN git clone --depth 1 --branch v0.11.1 https://github.com/neovim/neovim.git && \
     cd neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo CMAKE_INSTALL_PREFIX=/home/developer/local && \
     cd .. && rm -rf neovim
@@ -37,7 +39,7 @@ EOF
 
 COPY ./config/ /home/developer/.config
 
-WORKDIR /workspace
+WORKDIR /home/developer/workspace
 
 CMD [ "bash" ]
 
