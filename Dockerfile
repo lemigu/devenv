@@ -7,7 +7,7 @@ RUN apt-get update && \
 
 RUN apt-get install -y coreutils jq gawk fzf ripgrep bat yq lazygit tmux 
 
-RUN apt-get install python python-dev
+RUN apt-get install python3 python3-dev
 # TODO : pip?
 
 RUN python3 -m pip install 'python-language-server[all]'
