@@ -57,7 +57,23 @@ create () {
 }
 
 list () {
-    echo "list"
+    local devenvs=$($CONTAINER_ENGINE ps -a --filter "name=^/devenv-" --format "{{.Names}}---{{.Status}}")
+    {
+        echo -e "DEVENV\tSTATUS"
+        while IFS= read -r devenv; do
+            container_name="${devenv%%---*}"
+            devenv_name="${container_name#devenv-}"
+            
+            container_status="${devenv##*---}"
+            devenv_status="inactive"
+
+            if [[ $container_status == Up* ]]; then
+                devenv_status="active"
+            fi
+           
+            echo -e "$devenv_name\t$devenv_status"
+        done <<< "$devenvs"
+    } | column -t -s $'\t'
 }
 
 connect () {
