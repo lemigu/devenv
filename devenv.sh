@@ -77,7 +77,14 @@ list () {
 }
 
 connect () {
-    echo "connect"
+    if [[ $# -lt 1 ]] ; then
+        echo "Expected at least 1 argument, got $#"
+        usage
+        exit 1
+    fi
+
+    $CONTAINER_ENGINE start devenv-$1
+    $CONTAINER_ENGINE exec -it devenv-$1 bash
 }
 
 archive () {
