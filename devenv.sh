@@ -3,6 +3,7 @@
 set -euo pipefail
 
 DEV_IMAGE="ghcr.io/lemigu/devtools:latest"
+CONTAINER_USER="developer"
 CONTAINER_ENGINE="docker"
 
 usage () {
@@ -54,14 +55,14 @@ create () {
 
     local mount_cmd=""
     if [[ -n "$to_mount" ]]; then
-        mount_cmd="-v $to_mount:/home/developer/workspace"
+        mount_cmd="-v $to_mount:/home/$CONTAINER_USER/workspace"
     fi
     
     $CONTAINER_ENGINE run -it --name devenv-$container_name \
         --platform linux/amd64 \
         $mount_cmd \
-        -v ~/.ssh:/home/developer/.ssh:ro \
-        -v ~/.gitconfig:/home/developer/.gitconfig:ro \
+        -v ~/.ssh:/home/$CONTAINER_USER/.ssh:ro \
+        -v ~/.gitconfig:/home/$CONTAINER_USER/.gitconfig:ro \
         $DEV_IMAGE
 }
 
