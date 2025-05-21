@@ -36,8 +36,8 @@ RUN mkdir -p /home/developer/local && \
 RUN mkdir -p /home/developer/.local/bin && curl -s https://ohmyposh.dev/install.sh | bash -s
 
 RUN cat <<'EOF' >> /home/developer/.bashrc
-eval "$(oh-my-posh init bash --config ~/.config/oh-my-posh/theme.json)"
 export PATH="$PATH:/home/developer/local/go/bin:/home/developer/local/bin:/home/developer/local:/home/developer/go/bin:/home/developer/.local/bin:/usr/local/bin"
+eval "$(oh-my-posh init bash --config ~/.config/oh-my-posh/theme.json)"
 [ -z "$TMUX"  ] && { tmux attach || exec tmux new-session && exit;}
 EOF
 
