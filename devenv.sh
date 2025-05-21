@@ -51,10 +51,15 @@ create () {
                 exit 1
         esac
     done
+
+    local mount_cmd=""
+    if [[ -n "$to_mount" ]]; then
+        mount_cmd="-v $to_mount:/home/developer/workspace"
+    fi
     
     $CONTAINER_ENGINE run -it --name devenv-$container_name \
         --platform linux/amd64 \
-        -v $to_mount:/home/developer/workspace \
+        $mount_cmd \
         -v ~/.ssh:/home/developer/.ssh:ro \
         -v ~/.gitconfig:/home/developer/.gitconfig:ro \
         $DEV_IMAGE
