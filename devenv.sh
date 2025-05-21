@@ -16,12 +16,16 @@ usage () {
     echo "  help                                    Show this menu"
 }
 
-create () {
+check_args() {
     if [[ $# -lt 1 ]] ; then
         echo "Expected at least 1 argument, got $#"
         usage
         exit 1
     fi
+}
+
+create () {
+    check_args $@
 
     local container_name="$1"
     shift
@@ -82,32 +86,20 @@ list () {
 }
 
 connect () {
-    if [[ $# -lt 1 ]] ; then
-        echo "Expected at least 1 argument, got $#"
-        usage
-        exit 1
-    fi
+    check_args $@
 
     $CONTAINER_ENGINE start devenv-$1
     $CONTAINER_ENGINE exec -it devenv-$1 bash
 }
 
 archive () {
-     if [[ $# -lt 1 ]] ; then
-        echo "Expected at least 1 argument, got $#"
-        usage
-        exit 1
-    fi
+    check_args $@
 
     $CONTAINER_ENGINE stop devenv-$1
 }
 
 destroy () {
-     if [[ $# -lt 1 ]] ; then
-        echo "Expected at least 1 argument, got $#"
-        usage
-        exit 1
-    fi
+    check_args $@
 
     $CONTAINER_ENGINE rm -f devenv-$1
 }
