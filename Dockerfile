@@ -3,7 +3,7 @@ FROM ubuntu:25.10
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
-	apt-get install -y --no-install-recommends ca-certificates curl git build-essential sudo wget cmake unzip locales fontconfig
+	apt-get install -y --no-install-recommends ca-certificates curl git build-essential sudo wget cmake unzip locales fontconfig openssh-client
 
 RUN locale-gen en_US.UTF-8 && update-locale LANG=en_US.UTF-8
 
