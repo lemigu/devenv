@@ -58,6 +58,11 @@ create () {
 
 list () {
     local devenvs=$($CONTAINER_ENGINE ps -a --filter "name=^/devenv-" --format "{{.Names}}---{{.Status}}")
+    if [[ -z "$devenvs" ]]; then
+        echo "No devenvs found"
+        exit 0
+    fi
+
     {
         echo -e "DEVENV\tSTATUS"
         while IFS= read -r devenv; do
