@@ -88,7 +88,13 @@ connect () {
 }
 
 archive () {
-    echo "archive"
+     if [[ $# -lt 1 ]] ; then
+        echo "Expected at least 1 argument, got $#"
+        usage
+        exit 1
+    fi
+
+    $CONTAINER_ENGINE stop devenv-$1
 }
 
 destroy () {
