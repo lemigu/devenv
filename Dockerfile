@@ -3,11 +3,9 @@ FROM ubuntu:25.10
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
-	apt-get install -y --no-install-recommends ca-certificates curl git build-essential sudo wget cmake unzip locales fontconfig openssh-client
+	apt-get install -y --no-install-recommends ca-certificates curl git build-essential sudo wget unzip openssh-client
 
-RUN locale-gen en_US.UTF-8 && update-locale LANG=en_US.UTF-8
-
-RUN apt-get install -y coreutils jq gawk fzf ripgrep bat yq lazygit tmux tree neovim 
+RUN apt-get install -y coreutils jq gawk fzf ripgrep bat lazygit tmux tree neovim 
 
 RUN apt-get install -y python3 python3-dev python3-pip
 
@@ -16,12 +14,6 @@ RUN python3 -m pip install 'python-language-server[all]' --break-system-packages
 
 RUN useradd -m -s /bin/bash developer && \
 	echo "developer ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-
-RUN mkdir -p /usr/share/fonts/nerd-fonts && \
-    curl -fLo /tmp/JetBrainsMono.zip https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip && \
-    unzip /tmp/JetBrainsMono.zip -d /usr/share/fonts/nerd-fonts/JetBrainsMono && \
-    fc-cache -fv && \
-    rm /tmp/JetBrainsMono.zip
 
 USER developer
 
