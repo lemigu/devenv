@@ -98,7 +98,13 @@ archive () {
 }
 
 destroy () {
-    echo "destroy"
+     if [[ $# -lt 1 ]] ; then
+        echo "Expected at least 1 argument, got $#"
+        usage
+        exit 1
+    fi
+
+    $CONTAINER_ENGINE rm -f devenv-$1
 }
 
 if ! command -v docker >/dev/null 2>&1; then
